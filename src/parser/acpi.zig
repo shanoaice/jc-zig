@@ -1,6 +1,7 @@
 const std = @import("std");
+const utils = @import("../utils.zig");
 
-const string = []u8;
+const string = utils.string;
 
 pub const TripPoints = struct {
 	id: i32,
@@ -9,7 +10,7 @@ pub const TripPoints = struct {
 	temperature_unit: string
 };
 
-pub const AcpiJson = struct {
+pub const Acpi = struct {
 	type: string,
 	id: i32,
 	state: ?string,
