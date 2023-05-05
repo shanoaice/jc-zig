@@ -1,1 +1,3 @@
-pub const string = [:0]u8;
+const std = @import("std");
+
+pub const string = []u8;
