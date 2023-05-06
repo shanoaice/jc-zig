@@ -10,7 +10,7 @@ pub const TripPoints = struct {
 	temperature_unit: string
 };
 
-pub const Acpi = struct {
+pub const AcpiEntry = struct {
 	type: string,
 	id: i32,
 	state: ?string,
@@ -35,3 +35,28 @@ pub const Acpi = struct {
 	trip_points: ?[]TripPoints,
 	messages: ?[]string
 };
+
+pub fn parse(raw: string) AcpiEntry {
+
+	var raw_entries = std.mem.split(u8, raw, "\n");
+
+	var curr_entry: ?[]const u8 = raw_entries.first();
+
+	while (curr_entry != null) {
+		defer {
+			curr_entry = raw_entries.next();
+		}
+		var tokens = std.mem.tokenize(u8, curr_entry.?, " ");
+
+		const entry_type = tokens.first();
+		const entry_id = std.fmt.parseInt(i32, tokens.next().?, 10);
+
+		if (std.mem.eql(u8, entry_type, "Battery")) {
+			var state = std.mem.split(u8, tokens.next().?, ",").first();
+			_ = state;
+			var charge_prcent = std.fmt.parseInt(i32, tokens.next().?, 10);
+			_ = charge_prcent;
+		}
+		_ = entry_id;
+	}
+}

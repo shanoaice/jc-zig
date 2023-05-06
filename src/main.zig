@@ -1,5 +1,6 @@
 const std = @import("std");
 const utils = @import("./utils.zig");
+const acpi = @import("./parser/acpi.zig");
 
 pub fn main() !void {
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
